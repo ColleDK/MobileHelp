@@ -13,7 +13,7 @@ class UserRepositoryImpl(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
     override suspend fun getUser(): User = withContext(dispatcher) {
-        return@withContext database.userDao().getUsers().first().mapToDomain()
+        return@withContext database.userDao().getUsers().firstOrNull()?.mapToDomain() ?: User()
     }
 
     override suspend fun saveUser(user: User) = withContext(dispatcher) {
