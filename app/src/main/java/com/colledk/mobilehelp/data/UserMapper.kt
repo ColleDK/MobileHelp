@@ -75,3 +75,12 @@ fun UserLocal.mapToDomain(): User {
         gender = currentGender
     )
 }
+
+fun UserRemote.toHashMap(): HashMap<String, Any>{
+    return hashMapOf(
+        "name" to this.name,
+        "password" to this.password,
+        "birthday" to this.birthday.time,
+        "gender" to this.gender.name
+    )
+}

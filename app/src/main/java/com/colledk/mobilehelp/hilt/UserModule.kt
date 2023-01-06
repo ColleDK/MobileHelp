@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.colledk.mobilehelp.data.UserRepositoryImpl
 import com.colledk.mobilehelp.data.local.AppDatabase
+import com.colledk.mobilehelp.data.remote.UserDatabaseRemote
 import com.colledk.mobilehelp.domain.repository.UserRepository
 import com.colledk.mobilehelp.domain.usecase.GetUserUseCase
 import com.colledk.mobilehelp.domain.usecase.SaveUserUseCase
@@ -27,8 +28,13 @@ class UserModule {
     }
 
     @Provides
-    fun providesUserRepository(database: AppDatabase): UserRepository {
-        return UserRepositoryImpl(database = database)
+    fun providesRemoteDatabase(): UserDatabaseRemote{
+        return UserDatabaseRemote()
+    }
+
+    @Provides
+    fun providesUserRepository(database: AppDatabase, remoteDatabase: UserDatabaseRemote): UserRepository {
+        return UserRepositoryImpl(database = database, remoteDatabase = remoteDatabase)
     }
 
     @Provides
