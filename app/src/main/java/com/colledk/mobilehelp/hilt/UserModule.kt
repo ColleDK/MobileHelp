@@ -6,7 +6,9 @@ import com.colledk.mobilehelp.data.UserRepositoryImpl
 import com.colledk.mobilehelp.data.local.AppDatabase
 import com.colledk.mobilehelp.data.remote.UserDatabaseRemote
 import com.colledk.mobilehelp.domain.repository.UserRepository
+import com.colledk.mobilehelp.domain.usecase.GetAllUsersUseCase
 import com.colledk.mobilehelp.domain.usecase.GetUserUseCase
+import com.colledk.mobilehelp.domain.usecase.ListenToUsersUseCase
 import com.colledk.mobilehelp.domain.usecase.SaveUserUseCase
 import dagger.Module
 import dagger.Provides
@@ -47,4 +49,13 @@ class UserModule {
         return SaveUserUseCase(userRepository = userRepository)
     }
 
+    @Provides
+    fun providesGetAllUsersUseCase(userRepository: UserRepository): GetAllUsersUseCase {
+        return GetAllUsersUseCase(userRepository = userRepository)
+    }
+
+    @Provides
+    fun providesListenToUsersUseCase(userRepository: UserRepository): ListenToUsersUseCase {
+        return ListenToUsersUseCase(userRepository = userRepository)
+    }
 }

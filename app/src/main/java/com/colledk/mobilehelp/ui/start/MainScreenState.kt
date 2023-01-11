@@ -9,5 +9,6 @@ data class MainScreenState(
         password = "",
         gender = User.Gender.MALE,
         birthday = Date()
-    )
+    ),
+    val users: List<User> = listOf()
 )

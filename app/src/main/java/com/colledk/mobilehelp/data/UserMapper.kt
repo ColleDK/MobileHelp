@@ -3,6 +3,7 @@ package com.colledk.mobilehelp.data
 import com.colledk.mobilehelp.data.local.model.UserLocal
 import com.colledk.mobilehelp.data.remote.model.UserRemote
 import com.colledk.mobilehelp.domain.model.User
+import java.util.Date
 
 fun User.mapToLocal(): UserLocal {
     val currentGender: UserLocal.GenderLocal = when (gender) {
@@ -83,4 +84,15 @@ fun UserRemote.toHashMap(): HashMap<String, Any>{
         "birthday" to this.birthday.time,
         "gender" to this.gender.name
     )
+}
+
+fun Map<String, Any>?.toUserRemote(): UserRemote {
+    return this?.let {
+        UserRemote(
+            name = it["name"].toString(),
+            password = it["password"].toString(),
+            gender = UserRemote.GenderRemote.valueOf(it["gender"].toString()),
+            birthday = Date(it["birthday"].toString().toLong())
+        )
+    } ?: UserRemote()
 }
